@@ -36,7 +36,9 @@ jobs:
         run: dotnet nuget update source github --username ${{ github.repository_owner }} --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text
 
       - name: Restore
-        run: dotnet restore src/Robotico.Outbox/Robotico.Outbox.csproj tests/Robotico.Outbox.Tests/Robotico.Outbox.Tests.csproj
+        run: |
+          dotnet restore src/Robotico.Outbox/Robotico.Outbox.csproj
+          dotnet restore tests/Robotico.Outbox.Tests/Robotico.Outbox.Tests.csproj
 
       - name: Build
         run: |
