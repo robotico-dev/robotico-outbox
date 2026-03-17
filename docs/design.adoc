@@ -1,0 +1,24 @@
+= Robotico.Outbox — Design
+
+This document describes the transactional outbox contract, usage with Result, and how it fits with other Robotico packages.
+
+== Overview
+
+*Robotico.Outbox* provides a single abstraction:
+
+* `IOutbox` — EnqueueAsync(message) adds a message to the current transaction; CommitAsync() commits the transaction (including enqueued messages). Both return `Robotico.Result.Result`. A separate *outbox processor* (not in this package) reads committed outbox rows and publishes to the message bus.
+
+There are no in-box implementations; you implement IOutbox (e.g. with a database table and same-transaction writes) and run a background processor that publishes after commit.
+
+== Ordering and semantics
+
+* Call EnqueueAsync one or more times within the same logical transaction, then call CommitAsync once. Implementations must persist outbox messages in the same transaction as domain changes so that either both commit or both roll back.
+* CommitAsync returns a failed result if the transaction fails. EnqueueAsync may return failure if the message cannot be enqueued (e.g. validation, size limit).
+* Implementations must reject null message (throw ArgumentNullException or return a failed Result); document in XML.
+
+== Related packages
+
+* *Robotico.Resilience* — Use retry or circuit breaker in the **outbox processor** when publishing to the message bus (recommended).
+* *Robotico.Validation* — Validate messages before EnqueueAsync (e.g. IValidator<TMessage>.Validate(message)) and convert validation errors to Result.Error.
+
+See the README "Related packages" section for a short table.

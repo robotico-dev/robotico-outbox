@@ -20,6 +20,7 @@
     <Copyright>Copyright © Robotico</Copyright>
     <RepositoryType>git</RepositoryType>
     <EnableNETAnalyzers>true</EnableNETAnalyzers>
+    <AnalysisMode>All</AnalysisMode>
     <PackageId>Robotico.Outbox</PackageId>
     <Title>Robotico.Outbox</Title>
     <Description>Transactional outbox for .NET. IOutbox (EnqueueAsync, CommitAsync returning Result). Depends on Robotico.Result.</Description>
