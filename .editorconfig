@@ -36,6 +36,12 @@ dotnet_diagnostic.IDE0008.severity = error
 csharp_style_var_for_built_in_types = false:error
 csharp_style_var_when_type_is_apparent = false:error
 csharp_style_var_elsewhere = false:error
+
+# -----------------------------------------------------------------------------
+# File discipline — one top-level type per .cs file; validate with csharp/tools/find-multi-type-files.ps1 (see build/ROBOTICO_LIBRARY_10_STANDARD.adoc)
+# -----------------------------------------------------------------------------
+# (Enforced by convention + CI script; keep nested types out of production sources.)
+
 csharp_prefer_braces = true:warning
 dotnet_diagnostic.IDE0005.severity = warning
 dotnet_diagnostic.IDE0011.severity = warning
